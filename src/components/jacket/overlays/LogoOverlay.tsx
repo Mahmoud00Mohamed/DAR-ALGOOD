@@ -92,9 +92,8 @@ const LogoOverlay: React.FC<LogoOverlayProps> = ({ logo, view }) => {
         width: `${boxWidthPercent}%`,
         height: `${boxHeightPercent}%`,
         overflow: "hidden",
-        border: "1px dashed #000000",
       }}
-      className="logo-overlay-container"
+      className="logo-overlay-container logo-border"
     >
       <img
         src={logo.image}

@@ -808,6 +808,17 @@ button.text-xs {
 .text-overlay[data-font="Scheherazade New"] {
   font-family: "Scheherazade New", "Tajawal", "Arial", sans-serif !important;
 }
+
+/* Logo borders - visible during design, hidden during PDF capture */
+.logo-border {
+  border: 1px dashed #000000;
+}
+
+/* Hide borders during image capture for PDF generation */
+.jacket-image-capture .logo-border {
+  border: none !important;
+}
+
 /* PDF Loading overlay - highest priority */
 .pdf-loading-overlay {
   z-index: 9999 !important;
