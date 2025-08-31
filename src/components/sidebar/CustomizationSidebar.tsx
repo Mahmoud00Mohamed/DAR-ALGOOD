@@ -19,6 +19,7 @@ import {
   ShoppingBag,
   ShoppingBasket,
   Package,
+  RefreshCw,
 } from "lucide-react";
 import { useJacket, JacketView } from "../../context/JacketContext";
 import { useCart } from "../../context/CartContext";
@@ -61,7 +62,7 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
   isSaving = false,
 }) => {
   const location = useLocation();
-  const { setCurrentView } = useJacket();
+  const { setCurrentView, resetDesign } = useJacket();
   const { items } = useCart();
   const sidebarRef = useRef<HTMLDivElement>(null);
 
@@ -127,6 +128,7 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
     content?: "logos" | "texts";
     productTab?: "materials" | "sizes";
   }>(initialState.lastVisited);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   // Update memory state when local state changes
   useEffect(() => {
@@ -276,6 +278,16 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
     }
   };
 
+  const handleResetDesign = () => {
+    resetDesign();
+    setShowResetConfirm(false);
+    // إعادة تعيين حالة الشريط الجانبي
+    setActiveSection("");
+    setActiveView("front");
+    setCurrentView("front");
+    setActiveContent("logos");
+  };
+
   const renderViewButtons = () => {
     const views: { id: JacketView; name: string }[] = [
       { id: "front", name: "أمامي" },
@@ -380,6 +392,13 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
           >
             <ImagePlus size={18} />
             <span className="text-xs mt-1">الإضافات</span>
+          </button>
+          <button
+            onClick={() => setShowResetConfirm(true)}
+            className="flex flex-col items-center p-2 text-orange-600 hover:text-orange-700 transition-colors"
+          >
+            <RefreshCw size={18} />
+            <span className="text-xs mt-1">إعادة تعيين</span>
           </button>
           {/* إخفاء أزرار السلة في صفحة تعديل الطلب وإضافة زر الحفظ */}
           {isOrderEditPage ? (
@@ -519,6 +538,39 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
             )}
           </div>
         )}
+
+        {/* Reset Confirmation Modal for Mobile */}
+        {showResetConfirm && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl p-6 max-w-sm w-full">
+              <div className="text-center mb-6">
+                <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <RefreshCw className="w-6 h-6 text-orange-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  إعادة تعيين التصميم
+                </h3>
+                <p className="text-sm text-gray-600">
+                  سيتم حذف جميع التخصيصات والعودة للتصميم الافتراضي. هل أنت متأكد؟
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <button
+                  onClick={handleResetDesign}
+                  className="flex-1 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium"
+                >
+                  نعم، إعادة تعيين
+                </button>
+                <button
+                  onClick={() => setShowResetConfirm(false)}
+                  className="flex-1 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm"
+                >
+                  إلغاء
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -589,6 +641,13 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
               title="الإضافات"
             >
               <ImagePlus size={18} />
+            </button>
+            <button
+              onClick={() => setShowResetConfirm(true)}
+              className={`p-3 rounded-xl mb-3 bg-orange-200 text-orange-600 hover:bg-orange-300 transition-all`}
+              title="إعادة تعيين التصميم"
+            >
+              <RefreshCw size={18} />
             </button>
           </div>
 
@@ -681,6 +740,40 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
                   {activeView === "left" && <LeftLogoSection />}
                 </SubSidebarSection>
               )}
+            </div>
+          )}
+
+          {/* Reset Confirmation Modal for Desktop */}
+          {showResetConfirm && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+              <div className="bg-white rounded-xl p-6 max-w-md w-full">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <RefreshCw className="w-8 h-8 text-orange-600" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    إعادة تعيين التصميم
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    سيتم حذف جميع التخصيصات الحالية (الألوان، الخامات، الشعارات، النصوص) والعودة للتصميم الافتراضي. 
+                    هذا الإجراء لا يمكن التراجع عنه.
+                  </p>
+                </div>
+                <div className="flex gap-4">
+                  <button
+                    onClick={handleResetDesign}
+                    className="flex-1 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium"
+                  >
+                    نعم، إعادة تعيين
+                  </button>
+                  <button
+                    onClick={() => setShowResetConfirm(false)}
+                    className="flex-1 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                  >
+                    إلغاء
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>

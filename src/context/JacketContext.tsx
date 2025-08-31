@@ -107,6 +107,7 @@ export interface JacketContextType {
   getUploadedImages: () => UploadedImage[];
   updatePricing: (quantity?: number) => Promise<void>;
   isLoadingPrice: boolean;
+  resetDesign: () => void;
 }
 
 const defaultColors: Record<JacketPart, string> = {
@@ -434,6 +435,14 @@ export const JacketProvider: React.FC<{ children: React.ReactNode }> = ({
     return jacketState.uploadedImages;
   }, [jacketState.uploadedImages]);
 
+  const resetDesign = useCallback(() => {
+    setJacketState((prev) => ({
+      ...initialState,
+      // الاحتفاظ بالصور المرفوعة
+      uploadedImages: prev.uploadedImages,
+    }));
+  }, []);
+
   return (
     <JacketContext.Provider
       value={{
@@ -456,6 +465,7 @@ export const JacketProvider: React.FC<{ children: React.ReactNode }> = ({
         getUploadedImages,
         updatePricing,
         isLoadingPrice,
+        resetDesign,
       }}
     >
       {children}
