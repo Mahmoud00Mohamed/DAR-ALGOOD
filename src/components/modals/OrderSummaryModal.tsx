@@ -65,11 +65,8 @@ const OrderSummaryModal: React.FC<OrderSummaryModalProps> = ({
   };
 
   const validateName = (name: string): boolean => {
-    const namePattern = /^[\u0600-\u06FFa-zA-Z\s]{2,50}$/;
-    const hasNumbers = /\d/.test(name);
-    return (
-      namePattern.test(name.trim()) && name.trim().length >= 2 && !hasNumbers
-    );
+    // السماح بجميع أنواع الأحرف والأرقام والرموز، مع قيود طول النص فقط
+    return name.trim().length >= 2 && name.trim().length <= 50;
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -79,10 +76,8 @@ const OrderSummaryModal: React.FC<OrderSummaryModalProps> = ({
     if (field === "name") {
       if (!value.trim()) {
         errors.name = "الاسم مطلوب";
-      } else if (/\d/.test(value)) {
-        errors.name = "الاسم لا يجب أن يحتوي على أرقام";
       } else if (!validateName(value)) {
-        errors.name = "يرجى إدخال اسم صحيح (2-50 حرف)";
+        errors.name = "يرجى إدخال اسم من 2 إلى 50 حرف";
       } else {
         errors.name = "";
       }
@@ -106,10 +101,8 @@ const OrderSummaryModal: React.FC<OrderSummaryModalProps> = ({
 
     if (!customerInfo.name.trim()) {
       errors.name = "الاسم مطلوب";
-    } else if (/\d/.test(customerInfo.name)) {
-      errors.name = "الاسم لا يجب أن يحتوي على أرقام";
     } else if (!validateName(customerInfo.name)) {
-      errors.name = "يرجى إدخال اسم صحيح (2-50 حرف)";
+      errors.name = "يرجى إدخال اسم من 2 إلى 50 حرف";
     }
 
     if (!customerInfo.phone.trim()) {

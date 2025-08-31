@@ -321,7 +321,7 @@ const ImageCropModal: React.FC<ImageCropModalProps> = ({
         }
       }
 
-      const croppedDataUrl = canvas.toDataURL("image/png", 0.95);
+      const croppedDataUrl = canvas.toDataURL("image/png", 1.0);
       onCropComplete(croppedDataUrl, imageFile);
       onClose();
     } catch (error) {

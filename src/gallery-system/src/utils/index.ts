@@ -125,18 +125,18 @@ export const getCacheSize = (): number => {
 export const optimizeImageUrlForSpeed = (
   url: string,
   width?: number,
-  quality: number = 75
+  quality: number = 100
 ) => {
   // تحسين URLs للصور مع إعدادات محسنة للسرعة القصوى
   if (url.includes("unsplash.com")) {
     const params = new URLSearchParams();
     if (width) params.set("w", width.toString());
-    params.set("q", Math.min(quality, 75).toString()); // جودة أقل للسرعة
+    params.set("q", quality.toString());
     params.set("auto", "format,compress");
     params.set("fit", "crop");
     params.set("fm", "webp"); // تنسيق WebP للأداء الأفضل
     params.set("dpr", "1"); // تقليل DPR للسرعة
-    params.set("cs", "tinysrgb"); // ضغط الألوان
+    params.set("cs", "srgb"); // عدم ضغط الألوان
 
     return `${url}?${params.toString()}`;
   }
@@ -147,10 +147,10 @@ export const optimizeImageUrlForSpeed = (
     if (parts.length === 2) {
       const transformations = [
         "f_auto", // تنسيق تلقائي
-        "q_auto:low", // جودة منخفضة للسرعة
+        "q_100", // جودة عالية
         "c_fill", // ملء الإطار
         width ? `w_${width}` : "w_300", // حجم أصغر للسرعة
-        "fl_progressive", // تحميل تدريجي
+        "fl_progressive:none", // عدم استخدام التحميل التدريجي
         "fl_immutable_cache", // تخزين مؤقت دائم
       ].join(",");
 
@@ -179,13 +179,13 @@ export const generatePhotoId = () => {
 export const optimizeImageUrl = (
   url: string,
   width?: number,
-  quality: number = 80
+  quality: number = 100
 ) => {
   // تحسين URLs للصور مع إعدادات محسنة للأداء
   if (url.includes("unsplash.com")) {
     const params = new URLSearchParams();
     if (width) params.set("w", width.toString());
-    params.set("q", Math.min(quality, 85).toString()); // جودة محسنة
+    params.set("q", quality.toString());
     params.set("auto", "format");
     params.set("fit", "crop");
     params.set("fm", "webp"); // تنسيق WebP للأداء الأفضل
@@ -201,7 +201,7 @@ export const optimizeImageUrl = (
     if (parts.length === 2) {
       const transformations = [
         "f_auto", // تنسيق تلقائي
-        "q_auto:good", // جودة تلقائية محسنة
+        "q_100", // جودة عالية 100%
         "c_fill", // ملء الإطار
         width ? `w_${width}` : "w_400",
         "dpr_auto", // كثافة البكسل التلقائية

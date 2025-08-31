@@ -201,7 +201,7 @@ export const generateOrderPDFWithImages = async (
           imageWidth,
           imageHeight,
           undefined,
-          "SLOW"
+          "NONE"
         );
 
         if (i === 0) {

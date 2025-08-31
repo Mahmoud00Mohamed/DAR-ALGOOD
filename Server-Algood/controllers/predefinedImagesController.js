@@ -308,15 +308,15 @@ export const addPredefinedImage = async (req, res) => {
     const uploadOptions = {
       folder: "dar-aljoud/predefined-logos",
       resource_type: "image",
-      quality: "auto:good",
+      quality: "100",
       fetch_format: "auto",
-      flags: "progressive",
+      flags: "progressive:none",
       transformation: [
         {
           width: 1000,
           height: 1000,
           crop: "limit",
-          quality: "auto:good",
+          quality: "100",
         },
       ],
     };

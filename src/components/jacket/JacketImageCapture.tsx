@@ -184,13 +184,16 @@ const JacketImageCapture = forwardRef<
     try {
       const dataUrl = await htmlToImage.toPng(container, {
         quality: 1.0,
-        pixelRatio: 2,
+        pixelRatio: 3,
         width: 320,
         height: 410,
         backgroundColor: "#f9fafb",
         skipFonts: false,
         cacheBust: true,
         includeQueryParams: true,
+        style: {
+          imageRendering: "-webkit-optimize-contrast",
+        },
         fetchRequestInit: {
           mode: "cors",
         },

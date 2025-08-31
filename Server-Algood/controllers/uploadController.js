@@ -18,15 +18,15 @@ export const uploadSingleImage = async (req, res) => {
     const uploadOptions = {
       folder: "dar-aljoud/logos",
       resource_type: "image",
-      quality: "auto:good",
+      quality: "100",
       fetch_format: "auto",
-      flags: "progressive",
+      flags: "progressive:none",
       transformation: [
         {
           width: 1000,
           height: 1000,
           crop: "limit",
-          quality: "auto:good",
+          quality: "100",
         },
       ],
     };
@@ -82,15 +82,15 @@ export const uploadMultipleImages = async (req, res) => {
       const uploadOptions = {
         folder: "dar-aljoud/logos",
         resource_type: "image",
-        quality: "auto:good",
+        quality: "100",
         fetch_format: "auto",
-        flags: "progressive",
+        flags: "progressive:none",
         transformation: [
           {
             width: 1000,
             height: 1000,
             crop: "limit",
-            quality: "auto:good",
+            quality: "100",
           },
         ],
       };

@@ -38,6 +38,7 @@ export const copyImageToOrderFolder = async (originalPublicId, orderNumber) => {
       public_id: newPublicId,
       folder: `dar-aljoud/orders/${orderNumber}`,
       resource_type: "image",
+      quality: "100",
       overwrite: false,
       invalidate: true,
       tags: [`order_${orderNumber}`, "order_backup"],
