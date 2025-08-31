@@ -373,7 +373,7 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
             }`}
           >
             <Package size={18} />
-            <span className="text-xs mt-1">خيارات المنتج</span>
+            <span className="text-xs mt-1">المنتج</span>
           </button>
           <button
             onClick={() => {
@@ -398,7 +398,7 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
             className="flex flex-col items-center p-2 text-orange-600 hover:text-orange-700 transition-colors"
           >
             <RefreshCw size={18} />
-            <span className="text-xs mt-1">إعادة تعيين</span>
+            <span className="text-xs mt-1"> تعيين</span>
           </button>
           {/* إخفاء أزرار السلة في صفحة تعديل الطلب وإضافة زر الحفظ */}
           {isOrderEditPage ? (
@@ -453,7 +453,7 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
                 className="flex flex-col items-center p-2 text-[#563660] hover:text-[#4b2e55] transition-colors"
               >
                 <ShoppingBasket size={18} />
-                <span className="text-xs mt-1">الذهاب للسلة</span>
+                <span className="text-xs mt-1">السلة</span>
               </Link>
             </>
           )}
@@ -551,7 +551,8 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
                   إعادة تعيين التصميم
                 </h3>
                 <p className="text-sm text-gray-600">
-                  سيتم حذف جميع التخصيصات والعودة للتصميم الافتراضي. هل أنت متأكد؟
+                  سيتم حذف جميع التخصيصات والعودة للتصميم الافتراضي. هل أنت
+                  متأكد؟
                 </p>
               </div>
               <div className="flex gap-3">
@@ -755,8 +756,9 @@ const CustomizationSidebar: React.FC<CustomizationSidebarProps> = ({
                     إعادة تعيين التصميم
                   </h3>
                   <p className="text-gray-600 leading-relaxed">
-                    سيتم حذف جميع التخصيصات الحالية (الألوان، الخامات، الشعارات، النصوص) والعودة للتصميم الافتراضي. 
-                    هذا الإجراء لا يمكن التراجع عنه.
+                    سيتم حذف جميع التخصيصات الحالية (الألوان، الخامات، الشعارات،
+                    النصوص) والعودة للتصميم الافتراضي. هذا الإجراء لا يمكن
+                    التراجع عنه.
                   </p>
                 </div>
                 <div className="flex gap-4">
